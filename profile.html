@@ -1,0 +1,874 @@
+<?php
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    $name = $_POST['name'];
+    $email = $_POST['email'];
+    $message = $_POST['message'];
+
+    $to = "dinudinu1435@gmail.com";
+    $subject = "New Contact Message from Your Portfolio";
+    $body = "Name: $name\nEmail: $email\nMessage:\n$message";
+    $headers = "From: $email";
+
+    if (mail($to, $subject, $body, $headers)) {
+        echo "Message sent successfully!";
+    } else {
+        echo "Failed to send message. Please try again.";
+    }
+}
+?>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Deshan Gunathilaka</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        /* Reset and base styles */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+                --primary-color: #4f46e5;
+				--primary-dark: #4338ca;
+				--secondary-color: #14b8a6;
+				--accent-color: #f43f5e;
+				--accent: #3b82f6;
+			
+			/* Light theme colors */
+				--bg-primary: #f8fafc;
+				--bg-secondary: #ffffff;
+				--text-primary: #1e293b;
+				--text-secondary: #64748b;
+				
+            /* Dark theme colors */
+				--dark-bg-primary: #1e293b;
+				--dark-bg-secondary: #0f172a;
+				--dark-text-primary: #f8fafc;
+				--dark-text-secondary: #94a3b8;
+				
+            --white: #ffffff;
+            --gradient: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: var(--text-primary);
+            background-color: var(--bg-primary);
+        }
+		
+		#theme-toggle {
+			background-color: var(--primary-color);
+			color: var(--text-primary);
+	}
+
+/* Dark theme styles */
+body.dark-theme {
+    background-color: var(--dark-bg-primary);
+    color: var(--dark-text-primary);
+}
+
+body.dark-theme nav {
+    background-color: var(--dark-bg-secondary);
+}
+
+body.dark-theme .btn-primary {
+    background: var(--gradient);
+    color: var(--dark-text-primary);
+    box-shadow: 0 4px 15px rgba(15, 23, 42, 0.3);
+}
+
+body.dark-theme .btn-primary:hover {
+    box-shadow: 0 6px 20px rgba(15, 23, 42, 0.4);
+}
+
+/* Dark theme for text and backgrounds */
+body.dark-theme .container, 
+body.dark-theme .contact-form, 
+body.dark-theme .about, 
+body.dark-theme .projects, 
+body.dark-theme .skills {
+    background-color: var(--dark-bg-secondary);
+    color: var(--dark-text-primary);
+}
+
+body.dark-theme .section-title {
+    color: var(--dark-text-primary);
+}
+
+body.dark-theme .project-card {
+    background-color: var(--dark-bg-secondary);
+    box-shadow: 0 10px 30px rgba(15, 23, 42, 0.2);
+}
+
+body.dark-theme .project-title {
+    color: var(--dark-text-primary);
+}
+
+body.dark-theme .project-description {
+    color: var(--dark-text-secondary);
+}
+
+/* Hero section dark theme */
+body.dark-theme .hero {
+    background: linear-gradient(135deg, var(--accent) 0%, #0f172a 100%);
+}
+
+/* Footer dark theme */
+body.dark-theme footer {
+    background-color: var(--dark-bg-secondary);
+    color: var(--dark-text-primary);
+}
+
+body.dark-theme .social-links a {
+    color: var(--dark-text-primary);
+}
+
+body.dark-theme .social-links a:hover {
+    color: var(--secondary-color);
+}
+
+/* Contact form fields */
+body.dark-theme .form-group input,
+body.dark-theme .form-group textarea {
+    background-color: var(--dark-bg-primary);
+    border: 2px solid var(--dark-text-secondary);
+    color: var(--dark-text-primary);
+}
+
+/* Additions for any other elements */
+body.dark-theme .skill-item {
+    background-color: var(--dark-bg-secondary);
+}
+
+body.dark-theme .skill-item:hover {
+    background: var(--gradient);
+    color: var(--white);
+}
+
+
+        /* Utility classes */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 15px 35px;
+            border-radius: 30px;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            font-size: 0.9rem;
+        }
+
+        .btn-primary {
+            background: var(--gradient);
+            color: var(--white);
+            box-shadow: 0 4px 15px rgba(79, 70, 229, 0.3);
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(79, 70, 229, 0.4);
+        }
+
+        .btn-outline {
+            border: 2px solid var(--primary-color);
+            color: var(--primary-color);
+            background: transparent;
+        }
+
+        .btn-outline:hover {
+            background: var(--gradient);
+            color: var(--white);
+            border-color: transparent;
+        }
+
+        /* Navigation */
+        nav {
+            background-color: var(--white);
+            backdrop-filter: blur(10px);
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .nav-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            height: 80px;
+        }
+
+        .logo img {
+			height: 60px;
+			 width:auto;
+            text-decoration: none;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 3rem;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: var(--text-dark);
+            font-weight: 500;
+            transition: color 0.3s ease;
+            position: relative;
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--gradient);
+            transition: width 0.3s ease;
+        }
+
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+
+        /* Hero Section */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            padding: 6rem 2rem 2rem;
+            background: linear-gradient(135deg, var(--accent) 20%, #55a5fa 100%);
+            clip-path: polygon(0 0, 100% 0, 100% 85%, 0 100%);
+        }
+
+        .hero-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+            align-items: center;
+        }
+
+        .hero-content {
+            color: white;
+        }
+
+        .hero-title {
+            font-size: 3.5rem;
+            font-weight: 800;
+            line-height: 1.2;
+            margin-bottom: 1.5rem;
+        }
+		
+		.hero-image {
+				display: flex;
+				justify-content: flex-start;
+			}
+
+			.hero-image img {
+				height: 100%;
+				margin-top:150px;
+				object-fit: cover;
+				margin-left:500px;
+			}
+
+        .hero-subtitle {
+            font-size: 1.25rem;
+            margin-bottom: 2rem;
+            opacity: 0.9;
+        }
+
+        .cta-buttons {
+            display: flex;
+            gap: 1rem;
+        }
+
+        .btn {
+            padding: 0.75rem 2rem;
+            border-radius: 0.5rem;
+            font-weight: 600;
+            text-decoration: none;
+            transition: all 0.3s;
+        }
+
+        .btn-primary {
+            background: white;
+            color: var(--accent);
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        }
+
+        .btn-secondary {
+            background: transparent;
+            color: white;
+            border: 2px solid white;
+        }
+
+        .btn-secondary:hover {
+            background: rgba(255, 255, 255, 0.1);
+            transform: translateY(-2px);
+        }
+
+        /* About Section */
+        .about {
+            padding: 120px 0;
+            background-color: var(--white);
+        }
+
+        .about-content {
+            max-width: 800px;
+            margin: 0 auto;
+            text-align: center;
+        }
+
+        .section-title {
+            font-size: 2.8rem;
+            margin-bottom: 20px;
+            color: var(--text-dark);
+            text-align: center;
+            position: relative;
+            padding-bottom: 20px;
+        }
+
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80px;
+            height: 4px;
+            background: var(--gradient);
+            border-radius: 2px;
+        }
+
+        /* Projects Section */
+        .projects {
+            padding: 120px 0;
+            background-color: var(--light-bg);
+        }
+
+        .projects-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 40px;
+            margin-top: 60px;
+        }
+
+        .project-card {
+            background-color: var(--white);
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        .project-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 5px;
+            background: var(--gradient);
+        }
+
+        .project-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.2);
+        }
+
+        .project-image {
+            height: 200px;
+            background: url('p1.png') center/cover;
+        }
+		
+		.project-image1 {
+            height: 200px;
+            background: url('p2.jpg') center/cover;
+        }
+
+		.project-image2 {
+            height: 200px;
+            background: url('p3.jpg') center/cover;
+        }
+		
+        .project-content {
+            padding: 30px;
+        }
+
+        .project-title {
+            font-size: 1.5rem;
+            margin-bottom: 15px;
+            color: var(--text-dark);
+        }
+
+        .project-description {
+            color: var(--text-light);
+            margin-bottom: 20px;
+            line-height: 1.8;
+        }
+
+        .project-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+
+        .tag {
+            background: linear-gradient(135deg, rgba(79, 70, 229, 0.1), rgba(20, 184, 166, 0.1));
+            color: var(--primary-color);
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-size: 0.875rem;
+            font-weight: 500;
+        }
+
+        /* Skills Section */
+        .skills {
+            padding: 120px 0;
+            background-color: var(--white);
+        }
+
+        .skills-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px;
+            margin-top: 60px;
+        }
+
+        .skill-item {
+            background: var(--light-bg);
+            padding: 30px;
+            border-radius: 15px;
+            text-align: center;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .skill-item:hover {
+            transform: translateY(-5px);
+            background: var(--gradient);
+            color: var(--white);
+        }
+
+        .skill-item i {
+            font-size: 2.5rem;
+            margin-bottom: 15px;
+            color: var(--primary-color);
+        }
+
+        .skill-item:hover i {
+            color: var(--white);
+        }
+
+        /* Contact Section */
+        .contact {
+            padding: 120px 0;
+            background: linear-gradient(135deg, rgba(79, 70, 229, 0.05), rgba(20, 184, 166, 0.05));
+        }
+
+        .contact-form {
+            max-width: 700px;
+            margin: 0 auto;
+            background-color: var(--white);
+            padding: 50px;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+        }
+
+        .form-group {
+            margin-bottom: 25px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 10px;
+            color: var(--text-dark);
+            font-weight: 500;
+        }
+
+        .form-group input,
+        .form-group textarea {
+            width: 100%;
+            padding: 15px;
+            border: 2px solid #e2e8f0;
+            border-radius: 10px;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+        }
+
+        .form-group input:focus,
+        .form-group textarea:focus {
+            outline: none;
+            border-color: var(--primary-color);
+            box-shadow: 0 0 0 3px rgba(79, 70, 229, 0.1);
+        }
+
+        .form-group textarea {
+            height: 150px;
+            resize: vertical;
+        }
+
+        /* Footer */
+        footer {
+            background-color: var(--dark-bg-primary);
+            color: var(--white);
+            padding: 60px 0;
+        }
+
+        .footer-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .social-links {
+            display: flex;
+            gap: 25px;
+        }
+
+        .social-links a {
+            color: var(--white);
+            text-decoration: none;
+            font-size: 1.5rem;
+            transition: all 0.3s ease;
+        }
+
+        .social-links a:hover {
+            color: var(--secondary-color);
+            transform: translateY(-3px);
+        }
+
+        /* Mobile Responsiveness */
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+            }
+
+            .hero h1 {
+                font-size: 3rem;
+            }
+
+            .hero-buttons {
+                flex-direction: column;
+                align-items: stretch;
+            }
+
+            .footer-content {
+                flex-direction: column;
+                text-align: center;
+                gap: 30px;
+            }
+
+            .projects-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .contact-form {
+                padding: 30px;
+            }
+        }
+
+        /* Animations */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .hero-content * {
+            animation: fadeInUp 0.8s ease forwards;
+        }
+
+        .hero-content h1 {
+            animation-delay: 0.2s;
+        }
+
+        .hero-content p {
+            animation-delay: 0.4s;
+        }
+
+        .hero-buttons {
+            animation-delay: 0.6s;
+        }
+		#theme-toggle {
+			background-color: transparent;
+			color: black;
+			border: none;
+			padding: 10px;
+			cursor: pointer; 
+		}
+
+		#theme-toggle:hover {
+			transition: all 0.3s ease;
+			transform: translateY(-2px);
+		}
+
+
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav>
+        <div class="container nav-container">
+            <a href="#" class="logo"><img src="121bg.png" /></a>
+            <div class="nav-links">
+                <a href="#about">About</a>
+                <a href="#projects">Projects</a>
+                <a href="#skills">Skills</a>
+				<a href="#contact">Contact</a>
+				<button id="theme-toggle">
+                    <i class="fas fa-moon"></i>
+                </button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="hero-container">
+            <div class="hero-content">
+                <h1 class="hero-title">Deshan D. Gunathilaka</h1>
+                <p class="hero-subtitle">Undergraduate Network Engineer | Full-Stack Developer | Content Writer</p>
+                <div class="cta-buttons">
+                    <a href="#projects" class="btn btn-primary">View Projects</a>
+                    <a href="" class="btn btn-secondary">Download CV</a>
+                </div>
+            </div>
+			
+		<div class="hero-image">
+            <img src="1.png" alt="Deshan's Image" />
+        </div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about" class="about">
+        <div class="container">
+            <h2 class="section-title">About Me</h2>
+            <div class="about-content">
+                <p>I am an aspiring Network Engineer at the University of Bedfordshire, with a deep-rooted passion for crafting seamless, 
+					scalable web applications and delivering top-notch digital solutions. As a dedicated full-stack developer and skilled 
+					in Java and C++, I blend technical precision with creative insight to build dynamic applications that meet evolving industry needs. 
+					My expertise spans web content development, aiming to create impactful user experiences and exceed client expectations through 
+					innovation and attention to detail.
+				</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Projects Section -->
+    <section id="projects" class="projects">
+        <div class="container">
+            <h2 class="section-title">Featured Projects</h2>
+            <div class="projects-grid">
+			
+                <!-- Project 1 -->
+                <div class="project-card">
+                    <div class="project-image"></div>
+                    <div class="project-content">
+                        <h3 class="project-title">E-Commerce Platform</h3>
+                        <p class="project-description">A full-featured Hotel Booking platform with secure payment integration and real-time inventory management.</p>
+                        <div class="project-tags">
+                            <span class="tag">HTML5</span>
+                            <span class="tag">Php</span>
+                            <span class="tag">Mysqli</span>
+                        </div>
+                        <a href="#" class="btn btn-outline">View Project</a>
+                    </div>
+                </div>
+				
+				<!-- Project 2 -->
+                <div class="project-card">
+                    <div class="project-image1"></div>
+                    <div class="project-content">
+                        <h3 class="project-title">POS system</h3>
+                        <p class="project-description">A full-featured POS System with real-time inventory management and report generation</p>
+                        <div class="project-tags">
+                            <span class="tag">Java</span>
+							<span class="tag">MongoDB</span>
+                        </div>
+                        <a href="#" class="btn btn-outline">View Project</a>
+                    </div>
+                </div>
+
+                <!-- Project 3 -->
+                <div class="project-card">
+                    <div class="project-image2"></div>
+                    <div class="project-content">
+                        <h3 class="project-title">E-Commerce Platform</h3>
+                        <p class="project-description">A sleek, responsive restaurent website showcasing with a clean, modern design.</p>
+                        <div class="project-tags">
+                            <span class="tag">HTML5</span>
+                            <span class="tag">CSS</span>
+                            <span class="tag">JavaScript</span>
+							<span class="tag">php</span>
+                        </div>
+                        <a href="#" class="btn btn-outline">View Project</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+	
+		
+	<!-- Skills Section -->
+    <section id="skills" class="skills">
+        <div class="container">
+            <h2 class="section-title">Skills</h2>
+            <div class="skills-grid">
+                <div class="skill-item">
+                    <i class="fas fa-code"></i>
+                    <h3>Frontend Development</h3>
+                    <p>Expert in building responsive, user-friendly interfaces using HTML, CSS, and JavaScript frameworks.</p>
+                </div>
+                <div class="skill-item">
+                    <i class="fas fa-database"></i>
+                    <h3>Backend Development</h3>
+                    <p>Experienced in server-side development using Node.js, Express, and database management with MongoDB.</p>
+                </div>
+                <div class="skill-item">
+                    <i class="fas fa-mobile-alt"></i>
+                    <h3>Responsive Design</h3>
+                    <p>Creating mobile-friendly and responsive designs that provide a seamless user experience on any device.</p>
+                </div>
+                <div class="skill-item">
+                    <i class="fas fa-cloud"></i>
+                    <h3>Cloud Integration</h3>
+                    <p>Proficient in cloud services like AWS and Firebase for deploying, scaling, and managing applications.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+    <!-- Contact Section -->
+    <section id="contact" class="contact">
+        <div class="container">
+            <h2 class="section-title">Contact Me</h2>
+            <div class="contact-form">
+                <form action="" method="POST">
+                    <div class="form-group">
+                        <label for="name">Name</label>
+                        <input type="text" id="name" name="name" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="email">Email</label>
+                        <input type="email" id="email" name="email" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="message">Message</label>
+                        <textarea id="message" name="message" required></textarea>
+                    </div>
+                    <button type="submit" class="btn btn-primary">Send Message</button>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <p>Copyright © 2024 Deshan D Gunathilaka. All rights reserved.</p>
+                <div class="social-links">
+                    <a href="https://www.facebook.com/deshan.deshan.98892"><i class="fab fa-facebook-f"></i></a>
+                    <a href="https://www.https://x.com/DeshanDinidu143"><i class="fab fa-twitter"></i></a>
+                    <a href="https://www.linkedin.com/in/deshan-gunathilaka-35616520b"><i class="fab fa-linkedin-in"></i></a>
+                    <a href="https://github.com/DeshanDG"><i class="fab fa-github"></i></a>
+                </div>
+            </div>
+        </div>
+    </footer>
+</body>
+<script>
+const themeToggleButton = document.getElementById("theme-toggle");
+const root = document.documentElement;
+const body = document.body;
+
+// Function to enable dark mode
+function enableDarkMode() {
+    root.style.setProperty('--bg-primary', '#1e293b');
+    root.style.setProperty('--bg-secondary', '#0f172a');
+    root.style.setProperty('--text-primary', '#f8fafc');
+    root.style.setProperty('--text-secondary', '#94a3b8');
+    themeToggleButton.innerHTML = '<i class="fas fa-sun"></i>';
+    localStorage.setItem("theme", "dark");
+}
+
+// Function to enable light mode
+function enableLightMode() {
+    root.style.setProperty('--bg-primary', '#f8fafc');
+    root.style.setProperty('--bg-secondary', '#ffffff');
+    root.style.setProperty('--text-primary', '#1e293b');
+    root.style.setProperty('--text-secondary', '#64748b');
+    themeToggleButton.innerHTML = '<i class="fas fa-moon"></i>';
+    localStorage.setItem("theme", "light");
+}
+
+// Toggle theme based on the current mode
+themeToggleButton.addEventListener("click", () => {
+    if (localStorage.getItem("theme") === "dark") {
+        enableLightMode();
+    } else {
+        enableDarkMode();
+    }
+});
+
+// Set initial theme based on localStorage
+if (localStorage.getItem("theme") === "dark") {
+    enableDarkMode();
+} else {
+    enableLightMode();
+}
+
+if (localStorage.getItem("theme") === "dark") {
+    body.classList.add("dark-theme");
+    themeToggleButton.innerHTML = '<i class="fas fa-sun"></i>';
+} else {
+    themeToggleButton.innerHTML = '<i class="fas fa-moon"></i>';
+}
+
+// Toggle theme on button click
+themeToggleButton.addEventListener("click", () => {
+    body.classList.toggle("dark-theme");
+
+    // Update button icon and store the theme
+    if (body.classList.contains("dark-theme")) {
+        themeToggleButton.innerHTML = '<i class="fas fa-sun"></i>';
+        localStorage.setItem("theme", "dark");
+    } else {
+        themeToggleButton.innerHTML = '<i class="fas fa-moon"></i>';
+        localStorage.setItem("theme", "light");
+    }
+});
+
+</script>
+</html>
